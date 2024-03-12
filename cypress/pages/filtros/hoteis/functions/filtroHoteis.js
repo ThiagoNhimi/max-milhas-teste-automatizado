@@ -32,12 +32,50 @@ export const filtrarHoteis = (destino, mesAnoCheckIn, mesAnoCheckOut, diaCheckIn
   }
 
 }
+export const filtrarTelaDetalhes = (valorDesde, valorAte) => {
+  if (valorDesde) {
+    valorDesde = String(valorDesde);
+    cy.get(FILTRO_DETALHE_HOTEIS.VALOR_DESDE)
+      .focus()
+      .invoke('val', '')
+      .type(valorDesde);
+  }
+  if (valorAte) {
+    valorAte = String(valorAte);
+    cy.get(FILTRO_DETALHE_HOTEIS.VALOR_ATE)
+      .focus()
+      .invoke('val', '')
+      .type(valorAte);
+  }
 
-export const filtrarTelaDetalhes = (valorDesde, valorAte)=>{
-  cy.get(FILTRO_DETALHE_HOTEIS.VALOR_DESDE)
-    .type('{selectall}{del}')
-    .type(valorDesde)
-  cy.get(FILTRO_DETALHE_HOTEIS.VALOR_ATE)
-    .type('{selectall}{del}')
-    .type(valorAte)
-}
+    cy.wait(5000)
+  let i = 1;
+
+  cy.get('.wrapper > .content-wrapper > .resume-wrapper > .price-wrapper > .price > .daily-price').each(() => {
+    cy.get(`:nth-child(${i}) > .wrapper > .content-wrapper > .resume-wrapper > .price-wrapper > .price > .daily-price`, { timeout: 10000 }).should('be.visible').then($element => {
+      cy.wrap($element).invoke('text').then(text => {
+        const valorItem = parseFloat(text.replace('R$', '').replace(/\./g, '').replace(',', '.'));
+        const valorMinimo = valorDesde ? parseFloat(valorDesde.replace('R$', '').replace(',', '.')) : Number.MIN_VALUE;
+        const valorMaximo = valorAte ? parseFloat(valorAte.replace('R$', '').replace(',', '.')) : Number.MAX_VALUE;
+
+        cy.log(`Valor do item: ${valorItem}, Valor mínimo: ${valorMinimo}, Valor máximo: ${valorMaximo}`);
+
+        if (valorItem > valorMinimo && valorItem < valorMaximo) {
+          cy.log(`Valor ${text} dentro do intervalo.`);
+        } else {
+          cy.log(`Valor ${text} fora do intervalo.`);
+        }
+      });
+    });
+    i++;
+  });
+};
+
+
+
+  
+
+
+  
+
+  

@@ -13,6 +13,6 @@ export const FILTRO_HOTEIS = {
 }
 
 export const FILTRO_DETALHE_HOTEIS = {
-  VALOR_DESDE: '#Desde',
+  VALOR_DESDE: '.inputs-wrapper > :nth-child(1) > #Desde',
   VALOR_ATE: '#ate'
 }
