@@ -10,10 +10,10 @@ O repositório está organizado da seguinte forma:
 
 - **cypress/**
   - **pages/**
-    - **login/**
+    - **loginMaxMilhas/**
       - **data/**: Esta pasta contém os arquivos com os dados necessários para os testes de login.
       - **functions/**: Nesta pasta estão as funções que executam as ações relacionadas ao sistema de login.
-    - **hotels/**
+    - **filtroHoteisMaxMilhas/**
       - **data/**: Pasta que contém os arquivos com os dados necessários para os testes do filtro de hotéis.
       - **functions/**: Funções que executam as ações relacionadas ao filtro de hotéis.
 
